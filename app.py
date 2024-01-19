@@ -37,17 +37,17 @@ def listByGenre(entrada, filmes):
     film_titles = [i['title'] for i in filmes if entrada in i['genre_ids']]
     return "\n".join(film_titles)
 
-def show_message(msg):
+def showMessage(msg):
     messagebox.showinfo("Informação", msg)
 
-def show_message_with_input(title, message):
+def showMessageInput(title, message):
     input_dialog = simpledialog.askstring(title, message)
     return input_dialog
 
 def on_select():
     entrada = entry.get()
     if entrada == '0':
-        show_message('Obrigado por utilizar!')
+        showMessage('Obrigado por utilizar!')
         root.quit()
     elif any(entrada == str(i['id']) or entrada.lower() == i['name'].lower() for i in generos):
         while True:
@@ -55,7 +55,7 @@ def on_select():
 
             text.delete('1.0', tk.END) 
 
-            text.insert(tk.END, f'\nPágina {params["page"]}\n\n')
+            text.insert(tk.END, f'Página {params["page"]}\n\n')
 
             if entrada.isdigit():
                 text.insert(tk.END, listByGenre(int(entrada), filmes))
@@ -66,19 +66,19 @@ def on_select():
                         break
                 text.insert(tk.END, listByGenre(id_genero, filmes))
 
-            next_page = show_message_with_input("Proxima pagina", "\n1 - Próxima página\n0 - Sair.")
+            next_page = showMessageInput("Proxima pagina", "\n1 - Próxima página\n0 - Sair.")
             if next_page == '1':
                 params['page'] += 1
             elif next_page == '0':
-                show_message('Obrigado por utilizar!')
+                showMessage('Obrigado por utilizar!')
                 root.quit()
                 break
             else:
-                show_message('Opção inválida. Tente novamente.')
+                showMessage('Opção inválida. Tente novamente.')
                 root.quit()
                 break
     else:
-        show_message('Gênero não encontrado!\nVerifique o que foi digitado e tente novamente')
+        showMessage('Gênero não encontrado!\nVerifique o que foi digitado e tente novamente')
 
 generos = getGenres(params)
 id_genero = 0
